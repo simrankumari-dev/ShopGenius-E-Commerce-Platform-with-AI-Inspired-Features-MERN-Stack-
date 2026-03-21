@@ -3,40 +3,39 @@ import logo from '../assets/logo.png'
 import { IoSearchCircleOutline } from "react-icons/io5";
 import { FaCircleUser } from "react-icons/fa6";
 import { MdOutlineShoppingCart } from "react-icons/md";
-import { userDataContext } from '../context/UserContext';
+import { UsetDataContext } from '../context/UserContext';
 import { IoSearchCircleSharp } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
 import { IoMdHome } from "react-icons/io";
 import { HiOutlineCollection } from "react-icons/hi";
 import { MdContacts } from "react-icons/md";
 import axios from 'axios';
-import { authDataContext } from '../context/authContext';
+import { AuthContext } from '../context/AuthContext';
 import { shopDataContext } from '../context/ShopContext';
 function Nav() {
-    let {getCurrentUser , userData} = useContext(userDataContext)
-    let {serverUrl} = useContext(authDataContext)
+    let { userData,setUserData} = useContext(UsetDataContext)
+    let {serverUrl} = useContext(AuthContext)
     let {showSearch,setShowSearch,search,setSearch,getCartCount} = useContext(shopDataContext)
     let [showProfile,setShowProfile] = useState(false)
     let navigate = useNavigate()
 
 
     const handleLogout = async () => {
-        try {
-            const result = await axios.get(serverUrl + "/api/auth/logout" , {withCredentials:true})
-            console.log(result.data)
-           
-            navigate("/login")
-        } catch (error) {
-            console.log(error)
-        }
-        
+    try {
+        const result = await axios.get(serverUrl + "/api/auth/logout" , {withCredentials:true})
+        console.log(result.data)
+        setUserData(null)  // ← ye add karo
+        navigate("/login")
+    } catch (error) {
+        console.log(error)
     }
+}
   return (
     <div className='w-[100vw] h-[70px] bg-[#ecfafaec] z-10 fixed top-0 flex  items-center justify-between px-[30px] shadow-md shadow-black '>
 
         <div className='w-[20%] lg:w-[30%] flex items-center justify-start   gap-[10px] '>
             <img src={logo} alt="" className='w-[30px]' />
-            <h1 className='text-[25px] text-[black] font-sans '>OneCart</h1>
+            <h1 className='text-[25px] text-[black] font-sans '>ShopGenius</h1>
         </div>
         <div className='w-[50%] lg:w-[40%] hidden md:flex'>
             <ul className='flex items-center justify-center gap-[19px] text-[white] '>
@@ -61,6 +60,7 @@ function Nav() {
        {showProfile && <div className='absolute w-[220px] h-[150px] bg-[#000000d7] top-[110%] right-[4%] border-[1px] border-[#aaa9a9] rounded-[10px] z-10'>
         <ul className='w-[100%] h-[100%] flex items-start justify-around flex-col text-[17px] py-[10px] text-[white]'>
             {!userData && <li className='w-[100%] hover:bg-[#2f2f2f]  px-[15px] py-[10px] cursor-pointer' onClick={()=>{
+                setUserData(null)
                 navigate("/login");setShowProfile(false)
             }}>Login</li>}
             {userData && <li className='w-[100%] hover:bg-[#2f2f2f]  px-[15px] py-[10px] cursor-pointer' onClick={()=>{handleLogout();setShowProfile(false)}}>LogOut</li>}

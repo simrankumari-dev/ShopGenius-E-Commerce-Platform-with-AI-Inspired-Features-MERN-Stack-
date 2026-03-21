@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Title from '../component/Title'
 import { shopDataContext } from '../context/ShopContext'
-import { authDataContext } from '../context/authContext'
+import { AuthContext } from '../context/authContext'
 import axios from 'axios'
 
 function Order() {
     let [orderData,setOrderData] = useState([])
     let {currency} = useContext(shopDataContext)
-    let {serverUrl} = useContext(authDataContext)
+    let {serverUrl} = useContext(AuthContext)
 
     const loadOrderData = async () => {
        try {

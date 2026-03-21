@@ -1,4 +1,4 @@
-OneCart – Full Stack Ecommerce Application
+ShopGenius – Full Stack Ecommerce Application
 
 This is a full‑stack Ecommerce project built using the MERN stack. The project contains three separate parts:
 
@@ -9,7 +9,7 @@ Admin Panel
 Backend (API & Database)
 
 📁 Project Structure
-5.oneCart/
+5.ShopGenius/
 │
 ├── frontend/     # User‑facing ecommerce website
 ├── admin/        # Admin dashboard
